@@ -36,6 +36,21 @@ function TextForm(props) {
         navigator.clipboard.writeText(text);
         props.showAlert("Coppied text to Clipboard","success");
     }
+    const handlecapitalizeclick = () => {
+        const newtext = text.replace(/\b\w/g, (char) => char.toUpperCase());
+        setText(newtext);
+        props.showAlert("Words capitalized", "success");
+    }
+
+    const handleDownloadClick = () => {
+        const blob = new Blob([text], { type: 'text/plain' });
+        const anchor = document.createElement('a');
+        anchor.href = URL.createObjectURL(blob);
+        anchor.download = 'YourTextFile.txt';
+        anchor.click();
+    }
+    
+    
 
     return (
         <>
@@ -52,6 +67,9 @@ function TextForm(props) {
                 <button  disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleonloclick}>Convert to lowerCase</button>
                 <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleonremoveclick}>Remove extra space</button>
                 <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handlecopyclick}>Copy text</button>
+                <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handlecapitalizeclick}>Capitalize text</button>
+                <button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={handleDownloadClick}>Download Text</button>
+
 
 
 
